@@ -100,19 +100,24 @@ public class Network {
      *  The user who appears the most in the follow lists of all the users. */
     public String mostPopularUser() {
         //// Replace the following statement with your code
-        int IndexOfUser = -1;
+        int indexOfUser = -1;
         int maxFollowers  = 0;
         if (userCount == 0){
             return null;
         }
         for (int i = 0 ; i < userCount ; i++) {
+            if (users[i] != null) {
             int followers = followeeCount(users[i].getName());
             if (followers > maxFollowers ){
-                IndexOfUser = i;
+                indexOfUser = i;
                 maxFollowers  = followers;
             }
         }
-        return users[IndexOfUser].getName();
+     }
+        if (indexOfUser == -1) {
+            return null;
+        }
+        return users[indexOfUser].getName();
     }
 
 
