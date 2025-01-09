@@ -62,13 +62,14 @@ public class Network {
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
         //// Replace the following statement with your code
-        if (this.getUser(name1) == null || this.getUser(name2) == null){
+        if (name1 == null || name2 == null || getUser(name2) == null || getUser(name1) == null || name1.equals(name2)){
             return false;
         }
-        if (name1.equals(name2)){
+        if (getUser(name1).follows(name2)){
             return false;
         }
-        return this.getUser(name1).addFollowee(name2);
+        getUser(name1).addFollowee(name2);
+        return true;
     }
     
     /** For the user with the given name, recommends another user to follow. The recommended user is
@@ -99,20 +100,21 @@ public class Network {
      *  The user who appears the most in the follow lists of all the users. */
     public String mostPopularUser() {
         //// Replace the following statement with your code
-        int maxfollowers = 0;
-        String mostPopular = "";
+        int IndexOfUser = -1;
+        int maxFollowers  = 0;
         if (userCount == 0){
             return null;
         }
-        for (int i = 0; i < userCount; i++) {
-            if (followeeCount(users[i].getName()) > maxfollowers){
-                maxfollowers = followeeCount(users[i].getName());
-                mostPopular = users[i].getName();
+        for (int i = 0 ; i < userCount ; i++) {
+            int followers = followeeCount(users[i].getName());
+            if (followers > maxFollowers ){
+                IndexOfUser = i;
+                maxFollowers  = followers;
             }
-            
         }
-        return mostPopular;
+        return users[IndexOfUser].getName();
     }
+
 
     /** Returns the number of times that the given name appears in the follows lists of all
      *  the users in this network. Note: A name can appear 0 or 1 times in each list. */
