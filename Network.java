@@ -101,7 +101,7 @@ public class Network {
     public String mostPopularUser() {
         //// Replace the following statement with your code
         int indexOfUser = -1;
-        int maxFollowers  = 0;
+        int maxFollowers  = -1;
         if (userCount == 0){
             return null;
         }
@@ -114,11 +114,10 @@ public class Network {
             }
         }
      }
-        if (indexOfUser == -1) {
-            return null;
-        }
+      
         return users[indexOfUser].getName();
     }
+ 
 
 
     /** Returns the number of times that the given name appears in the follows lists of all
@@ -127,10 +126,11 @@ public class Network {
         //// Replace the following statement with your code
          int count = 0;
          for (int i = 0; i < users.length; i++) {
-            if ( this.users[i] != null || this.users[i].follows(name)){
+            if (this.users[i] != null){
+            if (this.users[i].follows(name)){
                 count++;
             }
-            
+        }
          }
         return count;
     }
